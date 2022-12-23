@@ -23,6 +23,7 @@ public class CategoriaService extends GenericServiceImpl<Categoria,Long> impleme
     }
 
     //agrego el servicio que me busca por el nombre de la categoria
+    @Override
     public Categoria findByCategoria(String cat_titulo) {
         Optional<Categoria> optional = categoriaRepository.findByTitulo(cat_titulo);
         return optional.orElse(null);
