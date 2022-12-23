@@ -1,15 +1,16 @@
 package com.bruno.DigitalBooking.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "Categorias")
 public class Categoria {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cat_id", nullable = false)
     private Long id;
 
@@ -21,6 +22,10 @@ public class Categoria {
 
     @Column(name = "cat_url_imagen", nullable = false)
     private String url_imagen;
+
+    @OneToMany(mappedBy = "categoria")
+    @JsonIgnore
+    private Set<Producto> productos;
 
     public Categoria(Long id, String titulo, String descripcion, String url_imagen) {
         this.id = id;
@@ -62,5 +67,13 @@ public class Categoria {
 
     public void setUrl_imagen(String url_imagen) {
         this.url_imagen = url_imagen;
+    }
+
+    public Set<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
     }
 }
